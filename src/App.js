@@ -28,15 +28,34 @@ const initialFriends = [
 
 function App() {
   const [friends, setFriends] = useState(initialFriends);
+  const [curFriend, setCurFriend] = useState("");
+  const [showAddFriend, setShowAddFriend] = useState(false);
+
+  function handleSplitBill(value) {
+    setFriends((friends) =>
+      friends.map((fr) =>
+        fr.name === curFriend ? { ...fr, balance: fr.balance + value } : fr
+      )
+    );
+    setCurFriend("");
+  }
 
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendList friends={friends} />
-        <Form />
-        <Button>Add Friend</Button>
+        <FriendList
+          friends={friends}
+          curFriend={curFriend}
+          setCurFriend={setCurFriend}
+        />
+        {showAddFriend && <Form onSetFriends={setFriends} />}
+        <Button onClick={() => setShowAddFriend((show) => !show)}>
+          {showAddFriend ? "Close" : "Add Friend"}
+        </Button>
       </div>
-      <SplitBoard name='Sam' />
+      {curFriend !== "" && (
+        <SplitBoard onSplitBill={handleSplitBill} name={curFriend} />
+      )}
     </div>
   );
 }

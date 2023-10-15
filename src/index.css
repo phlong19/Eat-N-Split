@@ -55,6 +55,12 @@ body {
   gap: 0.4rem;
   font-size: 1.4rem;
   margin-bottom: 2rem;
+  overflow-y: scroll;
+  max-height: 325px;
+}
+
+.sidebar ul::-webkit-scrollbar {
+  display: none;
 }
 
 .sidebar li {
@@ -129,6 +135,7 @@ form {
 
 label {
   font-weight: 500;
+  width: max-content;
 }
 
 label::first-letter {
